@@ -39,12 +39,12 @@ def sync_folders(source, replica, log_file):
         logging.info(message)
         print(message)
     
-    #Check for source directory
+    #Check source directory
     if not os.path.exists(source):
         log_operation(f"Error: Source directory '{source}' does not exist.")
         return
 
-    #Check/Create for replica directory
+    #Check/Create replica directory
     if not os.path.exists(replica):
         os.makedirs(replica)
         log_operation(f"Created directory {replica}")
@@ -59,14 +59,14 @@ def main():
     parser.add_argument("log_file")
     args = parser.parse_args()
     
-    ##Check/Create for logfile in the args directory
+    ##Check/Create logfile in the args directory
     log_directory = os.path.dirname(args.log_file)
     if log_directory and not os.path.exists(log_directory):
         os.makedirs(log_directory)
 
     logging.basicConfig(filename=args.log_file, level=logging.INFO, format='%(asctime)s - %(message)s')
 
-    #Lop Start with interval in seconds provided in args
+    #Lop start with interval in seconds provided in args
     while True:
         sync_folders(args.source, args.replica, args.log_file)
         time.sleep(args.interval)
